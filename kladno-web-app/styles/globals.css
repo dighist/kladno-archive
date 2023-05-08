@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+font-family: 'Source Code Pro', monospace;
+font-family: 'Source Serif Pro', serif;
+*/
+
+@layer base {
+  @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+}
+
+@font-face {
+  font-family: "Staatliches-Regular";
+  src: url('../fonts/Staatliches-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+body,
+html {
+  background-color: #2d2f3a;
+  font-family: 'Source Serif Pro', serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
