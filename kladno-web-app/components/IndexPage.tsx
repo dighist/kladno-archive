@@ -85,8 +85,18 @@ export default function IndexPage(props: IndexPageProps) {
       <PageHead />
 
       <KladnoHeader />
+<<<<<<< HEAD
       <KladnoAbout />
       <SearchBar filters={filters} setFilters={setFilters} />
+=======
+      <SearchBar
+        filters={filters}
+        setFilters={setFilters}
+        announcementLength={announcements.length}
+        lawLength={laws.length}
+        caseFileLength={caseFiles.length}
+      />
+>>>>>>> 0697854dec680c92c58bff00916eec8d5eac5799
 
       <div className="flex w-full justify-center gap-4">
         {columnsData.map((column, columnIndex) => (
