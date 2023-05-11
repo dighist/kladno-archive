@@ -10,8 +10,6 @@ import { settingsPlugin, settingsStructure } from 'plugins/settings'
 import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
-import authorType from 'schemas/author'
-import postType from 'schemas/post'
 import personType from 'schemas/person'
 import caseFileType from 'schemas/caseFile'
 import announcementType from 'schemas/announcement'
@@ -58,7 +56,7 @@ export default defineConfig({
     productionUrl({
       apiVersion,
       previewSecretId,
-      types: [postType.name, settingsType.name],
+      types: [settingsType.name],
     }),
     // Add an image asset source for Unsplash
     unsplashImageAsset(),
