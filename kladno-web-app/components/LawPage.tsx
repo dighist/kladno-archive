@@ -6,7 +6,6 @@ import PageHead from './PageHead'
 import Loading from './Loading'
 import BackArrow from './BackArrow'
 import Link from 'next/link'
-import PDF from 'react-pdf-js'
 
 export interface LawPageProps {
   //   Law: Law
