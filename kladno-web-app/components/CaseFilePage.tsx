@@ -47,28 +47,25 @@ export default function CaseFilePage({ id }: CaseFilePageProps) {
       {caseFile ? (
         <div className="h-screen w-full overflow-scroll bg-dark p-4 pb-4 pt-2.5">
           <KladnoHeader />
-          {/* <Link
-            href="/"
-            className="fixed left-4 top-4 flex items-center  hover:cursor-pointer"
-            passHref
-          >
-            <BackArrow />
-            <span className="pl-2 text-head text-lightgrey hover:text-white">
-              {' '}
-              Kladno Archive
-            </span>
-          </Link> */}
 
-          <div className="my-24 mt-32 text-lightgrey">
-            <div className="text-head">
+          <div className="mt-9 text-lightgrey">
+            <div className="text-md">
               {caseFile.personProsecuted.firstName}{' '}
               {caseFile.personProsecuted.lastName}
             </div>
-            <div className="font-mono">
+            <div className="mt-2 mb-2 px-2 py-1 w-max rounded-full bg-semi-dark"><p className="font-mono text-smmono text-dark">Case</p></div>
+            <Link
+            href="/"
+            className="hover:cursor-pointer"
+            passHref
+          >
+            <BackArrow />
+          </Link>
+            {/* <div className="font-mono">
               Charge filed on {formatDate(caseFile.datePenalty)}
               <br />
               {caseFile.documents.length} Files
-            </div>
+            </div> */}
           </div>
 
           <div className="my-sticky-div flex w-full justify-end">
