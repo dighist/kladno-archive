@@ -10,8 +10,15 @@ import {
   type Settings,
   settingsQuery,
   caseFileFields,
+  announcementFields,
+  lawFields,
+  bucketFields,
+  Bucket,
+  Law,
+  Announcement,
 } from 'lib/sanity.queries'
 import { createClient } from 'next-sanity'
+import announcement from 'schemas/announcement'
 
 /**
  * Checks if it's safe to create a client instance, as `@sanity/client` will throw an error if `projectId` is false
@@ -72,6 +79,33 @@ export async function getCaseFileByID(id: string): Promise<CaseFile> {
   const documentId = id
   const query = `*[_id == $documentId][0] {
     ${caseFileFields}
+  }`
+
+  return await client.fetch(query, { documentId })
+}
+
+export async function getAnnouncementByID(id: string): Promise<Announcement> {
+  const documentId = id
+  const query = `*[_id == $documentId][0] {
+    ${announcementFields}
+  }`
+
+  return await client.fetch(query, { documentId })
+}
+
+export async function getLawByID(id: string): Promise<Law> {
+  const documentId = id
+  const query = `*[_id == $documentId][0] {
+    ${lawFields}
+  }`
+
+  return await client.fetch(query, { documentId })
+}
+
+export async function getBucketByID(id: string): Promise<Bucket> {
+  const documentId = id
+  const query = `*[_id == $documentId][0] {
+    ${bucketFields}
   }`
 
   return await client.fetch(query, { documentId })

@@ -3,7 +3,7 @@ import IntroTemplate from 'intro-template'
 import * as demo from 'lib/demo.data'
 import type { CaseFile, Post, Settings } from 'lib/sanity.queries'
 import Link from 'next/link'
-import { useEffect,useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import AnnouncementPreview from './AnnouncementPreview'
 import CaseFilePreview from './CaseFilePreview'

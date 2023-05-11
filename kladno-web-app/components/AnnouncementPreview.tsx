@@ -6,7 +6,7 @@ export default function AnnouncementPreview(props: { announcement: any }) {
   return (
     <div className="h-fit w-full  border-2 border-semi-dark p-0 hover:border-lightgrey ">
       <Link
-        href={`/casefiles/${props.announcement._id}`}
+        href={`/announcements/${props.announcement._id}`}
         passHref
         className=" hover:cursor-pointer "
       >
