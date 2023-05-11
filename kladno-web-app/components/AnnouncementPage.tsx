@@ -57,7 +57,7 @@ export default function AnnouncementPage({ id }: AnnouncementPageProps) {
 
           <div className="my-24 mt-32 text-lightgrey">
             <div className="text-head">
-              Law {announcement.title.split('-')[2]} (
+              Announcement {announcement.title.split('-')[2]} (
               {announcement.title.split('-')[1]})
             </div>
             <div className="font-mono">

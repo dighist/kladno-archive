@@ -11,7 +11,7 @@ export default function AnnouncementPreview(props: { announcement: any }) {
         className=" hover:cursor-pointer "
       >
         <p className="px-2 py-4 font-serif text-md text-white">
-          Announcement {props.announcement.title.split('-')[2]},
+          Announcement {props.announcement.title.split('-')[2]},{' '}
           {props.announcement.title.split('-')[1]}
         </p>
         <hr className="border-1 border-semi-dark"></hr>
