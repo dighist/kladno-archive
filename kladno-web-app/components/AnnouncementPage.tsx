@@ -14,7 +14,7 @@ export interface AnnouncementPageProps {
 }
 
 export default function AnnouncementPage({ id }: AnnouncementPageProps) {
-  const [Announcement, setAnnouncement] = useState<Announcement>()
+  const [announcement, setAnnouncement] = useState<Announcement>()
 
   useEffect(() => {
     if (id) {
@@ -41,7 +41,7 @@ export default function AnnouncementPage({ id }: AnnouncementPageProps) {
   return (
     <>
       <PageHead />
-      {Announcement ? (
+      {announcement ? (
         <div className="h-screen w-full overflow-scroll bg-dark p-4">
           <Link
             href="/"
@@ -55,7 +55,21 @@ export default function AnnouncementPage({ id }: AnnouncementPageProps) {
             </span>
           </Link>
 
-          {Announcement.title}
+          <div className="my-24 mt-32 text-lightgrey">
+            <div className="text-head">
+              Law {announcement.title.split('-')[2]} (
+              {announcement.title.split('-')[1]})
+            </div>
+            <div className="font-mono">
+              Charge filed on {formatDate(announcement.dateAnnounced)}
+              <br />
+              Issued by {announcement.institutionFilePath}
+            </div>
+          </div>
+
+          <div className="my-24 text-lightgrey">
+            <embed className="m-auto h-screen w-2/3" src={announcement.pdf} />
+          </div>
         </div>
       ) : (
         <Loading />
