@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react'
 import { getCaseFileByID } from 'lib/sanity.client'
 import { CaseFile } from 'lib/sanity.queries'
 import { Head } from 'next/document'
-import PageHead from './PageHead'
-import Loading from './Loading'
-import BackArrow from './BackArrow'
 import Link from 'next/link'
+import { useEffect,useState } from 'react'
+
+import BackArrow from './BackArrow'
 import CaseFileListSection from './CaseFileListSection'
+import KladnoHeader from './KladnoHeader'
+import Loading from './Loading'
+import PageHead from './PageHead'
 
 export interface CaseFilePageProps {
   //   caseFile: CaseFile
@@ -43,8 +45,9 @@ export default function CaseFilePage({ id }: CaseFilePageProps) {
     <>
       <PageHead />
       {caseFile ? (
-        <div className="h-screen w-full overflow-scroll bg-dark p-4">
-          <Link
+        <div className="h-screen w-full overflow-scroll bg-dark p-4 pb-4 pt-2.5">
+          <KladnoHeader />
+          {/* <Link
             href="/"
             className="fixed left-4 top-4 flex items-center  hover:cursor-pointer"
             passHref
@@ -54,7 +57,7 @@ export default function CaseFilePage({ id }: CaseFilePageProps) {
               {' '}
               Kladno Archive
             </span>
-          </Link>
+          </Link> */}
 
           <div className="my-24 mt-32 text-lightgrey">
             <div className="text-head">

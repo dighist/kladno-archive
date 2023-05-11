@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 
 import AnnouncementPreview from './AnnouncementPreview'
 import CaseFilePreview from './CaseFilePreview'
+import KladnoAbout from './KladnoAbout'
 import KladnoHeader from './KladnoHeader'
 import LawPreview from './LawPreview'
 import SearchBar from './Search'
@@ -84,6 +85,7 @@ export default function IndexPage(props: IndexPageProps) {
       <PageHead />
 
       <KladnoHeader />
+      <KladnoAbout />
       <SearchBar filters={filters} setFilters={setFilters} />
 
       <div className="flex w-full justify-center gap-4">
