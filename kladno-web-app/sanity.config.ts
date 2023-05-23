@@ -19,6 +19,7 @@ import settingsType from 'schemas/settings'
 import caseFileDocument from 'schemas/caseFileDocument'
 import bucket from 'schemas/bucket'
 import law from 'schemas/law'
+import subject from 'schemas/subject'
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE ||
@@ -42,6 +43,7 @@ export default defineConfig({
       law,
       institutionType,
       bucket,
+      subject,
     ],
   },
   plugins: [

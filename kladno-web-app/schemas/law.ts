@@ -4,18 +4,69 @@ import { defineField, defineType } from 'sanity'
 import institution from './institution'
 import PdfPreview from 'components/PdfPreview'
 import { DocumentDefinition } from '@sanity/types'
+import announcement from './announcement'
+import subjectValue from './subject'
+import law from './law'
+import caseFileDocument from './caseFileDocument'
 
 export default defineType({
   name: 'law',
-  title: 'Law',
+  title: 'Regulation',
   icon: BookIcon,
   type: 'document',
   fields: [
     defineField({
       name: 'title',
-      title: 'Law Name',
+      title: 'Title',
       type: 'string',
       validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'subject',
+      title: 'Subject',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [subjectValue],
+        },
+      ],
+    }),
+
+    defineField({
+      name: 'hasReferencesTo',
+      title: 'Has References To',
+      description: 'Other documents that this regulation references',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [{ type: 'law' }],
+        },
+      ],
+    }),
+
+    defineField({
+      name: 'source',
+      title: 'Source',
+      type: 'string',
+    }),
+    defineField({
+      name: 'language',
+      title: 'Language',
+      type: 'array',
+      of: [
+        {
+          type: 'string',
+        },
+      ],
+      options: {
+        list: [
+          { title: 'English', value: 'en' },
+          { title: 'Czech', value: 'es' },
+          { title: 'German', value: 'fr' },
+        ],
+      },
     }),
     defineField({
       name: 'year',
@@ -26,7 +77,7 @@ export default defineType({
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'string',
+      type: 'text',
     }),
     defineField({
       name: 'institutionIssuedBy',

@@ -1,9 +1,11 @@
 import { BillIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
-import { defineField, defineType } from 'sanity'
+import { dec, defineField, defineType } from 'sanity'
 
 import personType from './person'
-import announcementType from './announcement'
+import announcement from './announcement'
+import subjectValue from './subject'
+import law from './law'
 
 /**
  * This file is the schema definition for a post.
@@ -24,10 +26,69 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+    }),
+    //description
+    defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'string',
+    }),
+    defineField({
+      name: 'subject',
+      title: 'Subject',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [subjectValue],
+        },
+      ],
+    }),
+    defineField({
+      name: 'language',
+      title: 'Language',
+      type: 'array',
+      of: [
+        {
+          type: 'string',
+        },
+      ],
+      options: {
+        list: [
+          { title: 'English', value: 'en' },
+          { title: 'Czech', value: 'es' },
+          { title: 'German', value: 'fr' },
+        ],
+      },
+    }),
+    defineField({
+      name: 'source',
+      title: 'Source',
+      type: 'string',
+    }),
+    defineField({
       name: 'scan',
       title: 'Scan',
       type: 'image',
     }),
+
+    defineField({
+      name: 'hasReferencesTo',
+      title: 'Has references to',
+      description:
+        'Other regulations and announcements that this document references',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [law, announcement],
+        },
+      ],
+    }),
+
     defineField({
       name: 'type',
       title: 'Type',
@@ -38,7 +99,6 @@ export default defineType({
       title: 'Date Received In',
       type: 'datetime',
     }),
-
     defineField({
       name: 'originalFilename',
       title: 'Original Filename',

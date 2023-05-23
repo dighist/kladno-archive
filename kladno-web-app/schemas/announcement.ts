@@ -2,6 +2,9 @@ import { BellIcon } from '@sanity/icons'
 import { defineField, defineType } from 'sanity'
 
 import institution from './institution'
+import subjectValue from './subject'
+import law from './law'
+import caseFileDocument from './caseFileDocument'
 
 export default defineType({
   name: 'announcement',
@@ -11,10 +14,57 @@ export default defineType({
   fields: [
     defineField({
       name: 'title',
-      title: 'Announcement Name',
+      title: 'Title',
       type: 'string',
       validation: (rule) => rule.required(),
     }),
+    defineField({
+      name: 'subject',
+      title: 'Subject',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [subjectValue],
+        },
+      ],
+    }),
+    defineField({
+      name: 'language',
+      title: 'Language',
+      type: 'array',
+      of: [
+        {
+          type: 'string',
+        },
+      ],
+      options: {
+        list: [
+          { title: 'English', value: 'en' },
+          { title: 'Czech', value: 'es' },
+          { title: 'German', value: 'fr' },
+        ],
+      },
+    }),
+    defineField({
+      name: 'source',
+      title: 'Source',
+      type: 'string',
+    }),
+
+    defineField({
+      name: 'hasReferencesTo',
+      title: 'Has References To',
+      description: 'Other documents that this announcement references',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [{ type: 'law' }, { type: 'announcement' }],
+        },
+      ],
+    }),
+
     defineField({
       name: 'year',
       title: 'Year',
@@ -24,7 +74,7 @@ export default defineType({
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'string',
+      type: 'text',
     }),
     defineField({
       name: 'institution',

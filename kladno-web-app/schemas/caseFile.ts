@@ -20,7 +20,7 @@ import caseFileDocumentType from './caseFileDocument'
 
 export default defineType({
   name: 'caseFile',
-  title: 'Case File',
+  title: 'Cases',
   icon: PackageIcon,
   type: 'document',
   fields: [
