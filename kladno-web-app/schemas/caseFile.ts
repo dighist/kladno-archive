@@ -5,6 +5,7 @@ import { defineField, defineType } from 'sanity'
 import personType from './person'
 import announcementType from './announcement'
 import caseFileDocumentType from './caseFileDocument'
+import typeValue from './type'
 
 /**
  * This file is the schema definition for a post.

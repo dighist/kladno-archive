@@ -6,6 +6,7 @@ import personType from './person'
 import announcement from './announcement'
 import subjectValue from './subject'
 import law from './law'
+import typeValue from './type'
 
 /**
  * This file is the schema definition for a post.
@@ -21,7 +22,7 @@ import law from './law'
 
 export default defineType({
   name: 'caseFileDocument',
-  title: 'Case File Document',
+  title: 'Case Files',
   icon: BillIcon,
   type: 'document',
   fields: [
@@ -36,17 +37,7 @@ export default defineType({
       title: 'Description',
       type: 'string',
     }),
-    defineField({
-      name: 'subject',
-      title: 'Subject',
-      type: 'array',
-      of: [
-        {
-          type: 'reference',
-          to: [subjectValue],
-        },
-      ],
-    }),
+
     defineField({
       name: 'language',
       title: 'Language',
@@ -69,6 +60,26 @@ export default defineType({
       title: 'Source',
       type: 'string',
     }),
+
+    defineField({
+      name: 'type',
+      title: 'Type',
+      description: 'The type of document',
+      type: 'reference',
+      to: [typeValue],
+    }),
+
+    defineField({
+      name: 'subject',
+      title: 'Subject',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [subjectValue],
+        },
+      ],
+    }),
     defineField({
       name: 'scan',
       title: 'Scan',
@@ -89,11 +100,6 @@ export default defineType({
       ],
     }),
 
-    defineField({
-      name: 'type',
-      title: 'Type',
-      type: 'string',
-    }),
     defineField({
       name: 'date',
       title: 'Date Received In',

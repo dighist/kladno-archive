@@ -5,6 +5,7 @@ import institution from './institution'
 import subjectValue from './subject'
 import law from './law'
 import caseFileDocument from './caseFileDocument'
+import typeValue from './type'
 
 export default defineType({
   name: 'announcement',
@@ -50,6 +51,14 @@ export default defineType({
       name: 'source',
       title: 'Source',
       type: 'string',
+    }),
+
+    defineField({
+      name: 'type',
+      title: 'Type',
+      description: 'The type of document',
+      type: 'reference',
+      to: [typeValue],
     }),
 
     defineField({
