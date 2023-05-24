@@ -7,6 +7,7 @@ import announcement from './announcement'
 import subjectValue from './subject'
 import law from './law'
 import typeValue from './type'
+import keywordValue from './keyword'
 
 /**
  * This file is the schema definition for a post.
@@ -31,11 +32,50 @@ export default defineType({
       title: 'Title',
       type: 'string',
     }),
-    //description
+
     defineField({
       name: 'description',
       title: 'Description',
+      type: 'text',
+    }),
+
+    defineField({
+      name: 'descriptionCreator',
+      title: 'Description Creator',
       type: 'string',
+      options: {
+        list: [
+          { title: 'Machine', value: 'machine' },
+          { title: 'Human', value: 'human' },
+        ],
+      },
+    }),
+
+    defineField({
+      name: 'subject',
+      title: 'Subject',
+      description: 'A topic of the resource (taxonomy, closed vocabulary)',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [subjectValue],
+        },
+      ],
+    }),
+
+    defineField({
+      name: 'keywords',
+      title: 'Keywords',
+      description:
+        'A keyword/tag of the resource (folksonomy, open vocabulary)',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [keywordValue],
+        },
+      ],
     }),
 
     defineField({
@@ -58,6 +98,8 @@ export default defineType({
     defineField({
       name: 'source',
       title: 'Source',
+      description:
+        'A related resource outside of Sanitiy from which the described resource is derived, e.g. Handelsblatt',
       type: 'string',
     }),
 
@@ -67,23 +109,6 @@ export default defineType({
       description: 'The type of document',
       type: 'reference',
       to: [typeValue],
-    }),
-
-    defineField({
-      name: 'subject',
-      title: 'Subject',
-      type: 'array',
-      of: [
-        {
-          type: 'reference',
-          to: [subjectValue],
-        },
-      ],
-    }),
-    defineField({
-      name: 'scan',
-      title: 'Scan',
-      type: 'image',
     }),
 
     defineField({
@@ -101,15 +126,46 @@ export default defineType({
     }),
 
     defineField({
-      name: 'date',
-      title: 'Date Received In',
-      type: 'datetime',
+      name: 'spatial',
+      title: 'Spatial',
+      description: 'Spatial characteristics of the resource.',
+      type: 'string',
+    }),
+
+    defineField({
+      name: 'scan',
+      title: 'Image Scan',
+      type: 'image',
     }),
     defineField({
       name: 'originalFilename',
       title: 'Original Filename',
+      description: 'The original filename of the scan from Dropbox',
       type: 'string',
       readOnly: true,
+    }),
+    defineField({
+      name: 'pageNumber',
+      title: 'Page Number',
+      type: 'number',
+    }),
+    defineField({
+      name: 'transcript',
+      title: 'Transcript',
+      type: 'text',
+    }),
+    defineField({
+      name: 'note',
+      title: 'Note',
+      type: 'text',
+    }),
+
+    // -------------- FIELDS TO BE REVIEWED ----------------
+
+    defineField({
+      name: 'date',
+      title: 'Date Received In',
+      type: 'datetime',
     }),
   ],
 

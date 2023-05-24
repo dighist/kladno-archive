@@ -21,6 +21,7 @@ import bucket from 'schemas/bucket'
 import law from 'schemas/law'
 import subject from 'schemas/subject'
 import type from 'schemas/type'
+import keyword from 'schemas/keyword'
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE ||
@@ -46,6 +47,7 @@ export default defineConfig({
       bucket,
       subject,
       type,
+      keyword,
     ],
   },
   plugins: [

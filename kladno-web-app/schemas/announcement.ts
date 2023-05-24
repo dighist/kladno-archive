@@ -6,6 +6,7 @@ import subjectValue from './subject'
 import law from './law'
 import caseFileDocument from './caseFileDocument'
 import typeValue from './type'
+import keywordValue from './keyword'
 
 export default defineType({
   name: 'announcement',
@@ -19,9 +20,29 @@ export default defineType({
       type: 'string',
       validation: (rule) => rule.required(),
     }),
+
+    defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'text',
+    }),
+
+    defineField({
+      name: 'descriptionCreator',
+      title: 'Description Creator',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Machine', value: 'machine' },
+          { title: 'Human', value: 'human' },
+        ],
+      },
+    }),
+
     defineField({
       name: 'subject',
       title: 'Subject',
+      description: 'A topic of the resource (taxonomy, closed vocabulary)',
       type: 'array',
       of: [
         {
@@ -30,6 +51,21 @@ export default defineType({
         },
       ],
     }),
+
+    defineField({
+      name: 'keywords',
+      title: 'Keywords',
+      description:
+        'A keyword/tag of the resource (folksonomy, open vocabulary)',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [keywordValue],
+        },
+      ],
+    }),
+
     defineField({
       name: 'language',
       title: 'Language',
@@ -50,6 +86,8 @@ export default defineType({
     defineField({
       name: 'source',
       title: 'Source',
+      description:
+        'A related resource outside of Sanitiy from which the described resource is derived, e.g. Handelsblatt',
       type: 'string',
     }),
 
@@ -75,46 +113,68 @@ export default defineType({
     }),
 
     defineField({
-      name: 'year',
-      title: 'Year',
-      type: 'string',
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: 'description',
-      title: 'Description',
-      type: 'text',
-    }),
-    defineField({
-      name: 'institution',
-      title: 'Institution',
-      type: 'reference',
-      to: [{ type: 'institution' }],
-    }),
-    defineField({
-      name: 'originalFilename',
-      title: 'Original Filename',
+      name: 'spatial',
+      title: 'Spatial',
+      description: 'Spatial characteristics of the resource.',
       type: 'string',
     }),
-    defineField({
-      name: 'institutionFilePath',
-      title: 'Insitituion File Path',
-      type: 'string',
-    }),
-    defineField({
-      name: 'dateAnnounced',
-      title: 'Date Announced',
-      type: 'datetime',
-    }),
+
     defineField({
       name: 'pdf',
       title: 'PDF Scan',
       type: 'file',
     }),
     defineField({
-      name: 'scannedText',
-      title: 'Scanned Text',
+      name: 'originalFilename',
+      title: 'Original Filename',
+      description: 'The original filename of the announcement from Dropbox',
+      type: 'string',
+      readOnly: true,
+    }),
+    defineField({
+      name: 'pageNumber',
+      title: 'Page Number',
+      type: 'number',
+    }),
+    defineField({
+      name: 'transcript',
+      title: 'Transcript',
       type: 'text',
+    }),
+    defineField({
+      name: 'note',
+      title: 'Note',
+      type: 'text',
+    }),
+
+    defineField({
+      name: 'institution',
+      title: 'Institution',
+      description: 'The institution that published this announcement',
+      type: 'reference',
+      to: [{ type: 'institution' }],
+    }),
+    defineField({
+      name: 'institutionFilePath',
+      title: 'Original Insitituion File Path',
+      description:
+        'The original name of the folder of the institution  that issued the announcement from Dropbox',
+      type: 'string',
+      readOnly: true,
+    }),
+
+    // -------------- FIELDS TO BE REVIEWED ----------------
+
+    defineField({
+      name: 'dateAnnounced',
+      title: 'Date Announced',
+      type: 'datetime',
+    }),
+    defineField({
+      name: 'year',
+      title: 'Year',
+      type: 'string',
+      validation: (rule) => rule.required(),
     }),
   ],
 })
