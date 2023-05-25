@@ -59,7 +59,7 @@ export default defineType({
       name: 'keywords',
       title: 'Keywords',
       description:
-        'A keyword/tag of the resource (folksonomy, open vocabulary)',
+        'A keyword/tag of the resource (folksonomy, open vocabulary) ',
       type: 'array',
       of: [
         {
@@ -129,6 +129,13 @@ export default defineType({
       type: 'file',
     }),
     defineField({
+      name: 'originalFilename',
+      title: 'Original Filename',
+      type: 'string',
+      description: 'The original filename of the file from Dropbox',
+      readOnly: true,
+    }),
+    defineField({
       name: 'pageNumber',
       title: 'Page Number',
       type: 'number',
@@ -164,14 +171,6 @@ export default defineType({
       title: 'Year',
       type: 'string',
       validation: (rule) => rule.required(),
-    }),
-
-    defineField({
-      name: 'originalFilename',
-      title: 'Original Filename',
-      type: 'string',
-      description: 'The original filename of the file from Dropbox',
-      readOnly: true,
     }),
   ],
   preview: {

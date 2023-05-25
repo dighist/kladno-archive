@@ -3,9 +3,12 @@ import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
 
 import personType from './person'
-import announcementType from './announcement'
+import institutionType from './institution'
+import announcement from './announcement'
+import law from './law'
 import caseFileDocumentType from './caseFileDocument'
 import typeValue from './type'
+import subjectValue from './subject'
 
 /**
  * This file is the schema definition for a post.
@@ -26,50 +29,79 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+    }),
+
+    defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'text',
+    }),
+
+    defineField({
+      name: 'subject',
+      title: 'Subject (Criminal Offense)',
+      description: 'A topic of the resource (taxonomy, closed vocabulary)',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [subjectValue],
+        },
+      ],
+    }),
+    defineField({
+      name: 'criminalOffenseParagraph',
+      title: 'Criminal Offense Paragraph',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [law, announcement],
+        },
+      ],
+    }),
+    defineField({
+      name: 'accusingInstitution',
+      title: 'Accusing Institution',
+      type: 'reference',
+      to: [{ type: institutionType.name }],
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: 'personProsecuted',
-      title: 'Person Prosecuted',
+      title: 'Accused Person',
       type: 'reference',
       to: [{ type: personType.name }],
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: 'languages',
-      title: 'Languages',
-      type: 'array',
-      of: [
-        {
-          type: 'string',
-        },
-      ],
-    }),
-
-    defineField({
-      name: 'documents',
-      title: 'Documents',
-      type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'caseFileDocument' }] }],
-    }),
-    defineField({
       name: 'dateIn',
-      title: 'Date Received In',
+      title: 'Date Criminal Charge In',
+      type: 'datetime',
+    }),
+    defineField({
+      name: 'dateCriminalChargeToCaseworker',
+      title: 'Date Criminal Charge To Caseworker',
       type: 'datetime',
     }),
     defineField({
       name: 'datePenalty',
-      title: 'Date Penalty Posted',
+      title: 'Date Penalty Notice',
       type: 'datetime',
     }),
-
     defineField({
-      name: 'announcementsViolated',
-      title: 'Announcements Violated',
+      name: 'dateFinePaid',
+      title: 'Date Fine Paid',
+      type: 'datetime',
+    }),
+    defineField({
+      name: 'documents',
+      title: 'Case Documents',
       type: 'array',
-      of: [
-        {
-          type: 'reference',
-          to: [{ type: announcementType.name }],
-        },
-      ],
+      of: [{ type: 'reference', to: [{ type: 'caseFileDocument' }] }],
     }),
     defineField({
       name: 'originalFilename',

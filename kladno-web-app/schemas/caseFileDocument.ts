@@ -20,6 +20,40 @@ import keywordValue from './keyword'
   https://www.sanity.io/docs/schema-types
 
  */
+import { apiVersion, dataset, projectId, useCdn } from '../lib/sanity.api'
+import { createClient } from 'next-sanity'
+
+// -------------------------------------------------
+// CUSTOM SLUGIFIER FUNCTIONS
+// -------------------------------------------------
+const client = projectId
+  ? createClient({ projectId, dataset, apiVersion, useCdn })
+  : null
+
+const padNumber = (num, size) => {
+  let s = String(num)
+  return s.padStart(size, '0')
+}
+
+async function myAsyncSlugifier(input, schemaType, context) {
+  const { getClient } = context
+  const client = getClient({ apiVersion: '2022-12-07' })
+
+  // Fetch count of documents of type 'caseFileDocument'
+  const query = 'count(*[_type=="caseFileDocument"])'
+  const totalCases = await client.fetch(query)
+
+  // Format count as a 5 digit string, padding with zeroes as needed
+  const countStr = String(totalCases + 1).padStart(5, '0')
+
+  // Generate the slug
+  const slug = `kla_cas_${countStr}`
+
+  return slug
+}
+// -------------------------------------------------
+// CUSTOM SLUGIFIER FUNCTIONS
+// -------------------------------------------------
 
 export default defineType({
   name: 'caseFileDocument',
@@ -32,6 +66,17 @@ export default defineType({
       title: 'Title',
       type: 'string',
     }),
+
+    // ----------------- SLUG TODO ---------------------
+    // defineField({
+    //   name: 'identifier',
+    //   type: 'slug',
+    //   options: {
+    //     source: () => '_id',
+    //     slugify: myAsyncSlugifier,
+    //   },
+    // }),
+    // -------------------------------------------------
 
     defineField({
       name: 'description',
