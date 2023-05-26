@@ -11,10 +11,9 @@ export default function CaseFilePreview(props: { case: any }) {
         passHref
         className=" hover:cursor-pointer "
       >
-        {props.case.personProsecuted && (
+        {props.case.title && (
           <p className="px-2 pt-2 pb-1 font-serif text-md text-white">
-            {props.case.personProsecuted.firstName}{' '}
-            {props.case.personProsecuted.lastName}
+            {props.case.title}
           </p>
         )}
         <div className="ml-2 mb-4 w-max rounded-full bg-semi-dark px-2 py-1">

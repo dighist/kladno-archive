@@ -50,8 +50,7 @@ export default function CaseFilePage({ id }: CaseFilePageProps) {
 
           <div className="mt-9 text-lightgrey">
             <div className="text-md">
-              {caseFile.personProsecuted.firstName}{' '}
-              {caseFile.personProsecuted.lastName}
+              {caseFile.title}
             </div>
             <div className="mt-2 mb-2 px-2 py-1 w-max rounded-full bg-semi-dark"><p className="font-mono text-smmono text-dark">Case</p></div>
             <Link
