@@ -13,7 +13,7 @@ case_id = "case-2346"
 
 # Fetch the existing document
 fetch_url = f"https://{SANITY_PROJECT_ID}.api.sanity.io/v1/data/query/{SANITY_DATASET}"
-fetch_query = f"*[_id == 'case-41943']"
+fetch_query = f"*[_id == '{case_id}']"
 # fetch_query = f"*[_type == 'caseFile']"
 fetch_headers = {
     'Content-type': 'application/json',
@@ -27,3 +27,5 @@ if fetch_response.status_code != 200:
 
 print("\n\n\n")
 print(fetch_response.json())
+print("\n\n\n")
+print(fetch_response.json().get('documents'))

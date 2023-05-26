@@ -101,7 +101,10 @@ export default defineType({
       name: 'documents',
       title: 'Case Documents',
       type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'caseFileDocument' }] }],
+
+      of: [
+        { type: 'reference', weak: false, to: [{ type: 'caseFileDocument' }] },
+      ],
     }),
     defineField({
       name: 'originalFilename',
@@ -113,11 +116,7 @@ export default defineType({
 
   preview: {
     select: {
-      first: 'personProsecuted.firstName',
-      last: 'personProsecuted.lastName',
-    },
-    prepare({ first, last }) {
-      return { title: 'Case File: ' + first + ' ' + last }
+      title: 'title',
     },
   },
 })

@@ -89,6 +89,7 @@ def upload_image(image_path):
     with open(image_path, "rb") as image_file:
         binary_data = image_file.read()
 
+    print(image_path)
     headers = {
         "Authorization": f"Bearer {SANITY_TOKEN}",
         "Content-Type": "image/jpeg"
@@ -240,22 +241,22 @@ def add_caseFileDocument_to_case(case_id, caseFileDocument_id):
     ### NOTE: you cannot add a caseFileDocument to a caseFile list of documents in one request
     ### you have to make a request to get the current list of documents, then add the new document to the list, then make a request to update the list
 
-    # Fetch the existing document
-    fetch_url = f"https://{SANITY_PROJECT_ID}.api.sanity.io/v1/data/query/{SANITY_DATASET}"
-    fetch_query = f"*[_id == '{case_id}']"
-    fetch_headers = {
-        'Content-type': 'application/json',
-        'Authorization': f'Bearer {SANITY_TOKEN}'
-    }
-    fetch_response = requests.get(fetch_url, headers=fetch_headers, params={"query": fetch_query})
+    # # Fetch the existing document
+    # fetch_url = f"https://{SANITY_PROJECT_ID}.api.sanity.io/v1/data/query/{SANITY_DATASET}"
+    # fetch_query = f"*[_id == '{case_id}']"
+    # fetch_headers = {
+    #     'Content-type': 'application/json',
+    #     'Authorization': f'Bearer {SANITY_TOKEN}'
+    # }
+    # fetch_response = requests.get(fetch_url, headers=fetch_headers, params={"query": fetch_query})
 
-    if fetch_response.status_code != 200:
-        print("Failed to fetch the document")
-        exit(1)
+    # if fetch_response.status_code != 200:
+    #     print("Failed to fetch the document")
+    #     exit(1)
 
-    print(fetch_response.json())
-    document = fetch_response.json()["result"][0]
-    existing_documents = document.get("documents", [])
+    # print(fetch_response.json())
+    # document = fetch_response.json()["result"][0]
+    # existing_documents = document.get("documents", [])
 
     # Add your new document to the existing ones
     new_document = {
@@ -263,7 +264,7 @@ def add_caseFileDocument_to_case(case_id, caseFileDocument_id):
         "_type": "reference",
         "_ref": caseFileDocument_id
     }
-    existing_documents.append(new_document)
+    # existing_documents.append(new_document)
 
     # Update the document with the new list of documents
     update_url = f"https://{SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/data/mutate/{SANITY_DATASET}"
@@ -276,8 +277,11 @@ def add_caseFileDocument_to_case(case_id, caseFileDocument_id):
             {
                 "patch": {
                     "id": case_id,
-                    "set": {
-                        "documents": existing_documents
+                    "insert": {
+                        "after": "documents[-1]",
+                        "items": [
+                            new_document
+                        ]
                     }
                 }
             }
@@ -289,20 +293,28 @@ def add_caseFileDocument_to_case(case_id, caseFileDocument_id):
         print("Failed to update the document")
     else:
         print("✅ Successfully updated the document")
+        print(update_response.json())
     
 
 
 # iterate over all cases
 SANITY_CASES_FILE_PATH = 'KLID Sanity Cases'          
 
-for case in os.listdir(SANITY_CASES_FILE_PATH)[:1]:
+for case in os.listdir(SANITY_CASES_FILE_PATH)[2:3]:
     print()
     print("☀️☀️ ------- case", case, "------- ☀️☀️")
     print()
 
+    # continue if not a folder
+    if not os.path.isdir(os.path.join(SANITY_CASES_FILE_PATH, case)):
+        continue
+
     # get all items in a case
     case_path = os.path.join(SANITY_CASES_FILE_PATH, case)
     for (item_ix, item) in enumerate(os.listdir(case_path)):
+        if ".DS_Store" in item:
+            continue
+
         klid = case.split('_')[0]
 
         # if item is a folder, iterate over all images in the folder, 
@@ -311,8 +323,12 @@ for case in os.listdir(SANITY_CASES_FILE_PATH)[:1]:
         if os.path.isdir(item_path):
             image_ids = []
 
+            images = os.listdir(item_path)
+            # remove item if it contains .DS_Store
+            images = [img for img in images if ".DS_Store" not in img]
 
-            for ix, image in enumerate(os.listdir(item_path)):
+            for ix, image in enumerate(images):
+                print("💞", image)
                 image_path = os.path.join(item_path, image)
                 print(f"Uploading image {ix + 1} of {len(os.listdir(item_path))}")
                 image_id = upload_image(image_path)
@@ -324,7 +340,6 @@ for case in os.listdir(SANITY_CASES_FILE_PATH)[:1]:
         # if item is an image, create a caseFileDocument with the image
         elif os.path.isfile(item_path):
             image_id = upload_image(item_path)
-
             case_file_id = create_case(item_path, [image_id], item_ix)
 
         # add the caseFileDocument to the caseFile list of documents
