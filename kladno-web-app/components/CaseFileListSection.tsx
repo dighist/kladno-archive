@@ -1,7 +1,9 @@
+import { urlForImage } from 'lib/sanity.image'
 import type { CaseFile, CaseFileDocument, Post } from 'lib/sanity.queries'
 import Link from 'next/link'
-import caseFile from 'schemas/caseFile'
 import { useEffect, useState } from 'react'
+import caseFile from 'schemas/caseFile'
+
 import CaseFileCloseView from './CaseFileCloseView'
 
 export default function CaseFileListSection(props: { caseFile: CaseFile }) {
@@ -36,7 +38,7 @@ export default function CaseFileListSection(props: { caseFile: CaseFile }) {
 
     setColumnsData(newColumnsData)
   }, [props.caseFile.documents])
-
+  console.log("columnsData", columnsData)
   return (
     <>
       {fileSelected ? (
@@ -61,10 +63,11 @@ export default function CaseFileListSection(props: { caseFile: CaseFile }) {
                     }}
                     className="my-4 "
                   >
-                    <img
-                      src={file.image}
+                    {/* {file.images[0].asset} */}
+                    {/* <img
+                      src={urlForImage(file.images[0].asset).width(500).url()}
                       className="w-full border-2 border-transparent object-cover   hover:border-lightgrey"
-                    />
+                    /> */}
                     <div className="font-mono text-lightgrey">Case File</div>
                   </div>
                 ))}

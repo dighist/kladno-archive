@@ -1,3 +1,4 @@
+import { urlForImage } from 'lib/sanity.image'
 import type { CaseFile, Post } from 'lib/sanity.queries'
 import Link from 'next/link'
 import caseFile from 'schemas/caseFile'
@@ -28,7 +29,7 @@ export default function CaseFilePreview(props: { case: any }) {
 
         <hr className="border-semi-dark"></hr>
         {props.case.documents.length && (
-          <img src={props.case.documents[0].images[0]}></img>
+          <img src={urlForImage(props.case.documents[0].images[0].asset).width(500).url()}></img>
         )}
         <hr className="border-semi-dark"></hr>
 
