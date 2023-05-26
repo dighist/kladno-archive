@@ -178,10 +178,17 @@ export default defineType({
     }),
 
     defineField({
-      name: 'scan',
-      title: 'Image Scan',
-      type: 'image',
+      name: 'images',
+      title: 'Images',
+      description: 'Images of the document',
+      type: 'array',
+      of: [
+        {
+          type: 'image',
+        },
+      ],
     }),
+
     defineField({
       name: 'originalFilename',
       title: 'Original Filename',
@@ -216,15 +223,7 @@ export default defineType({
 
   preview: {
     select: {
-      name: 'originalFilename',
-      image: 'scan',
-    },
-    prepare: ({ name, image }) => {
-      return {
-        title: name.split('.')[0],
-        imageUrl:
-          image && image.asset ? `${image.asset.url}?w=200&h=200&fit=crop` : '',
-      }
+      title: 'title',
     },
   },
 })
