@@ -1,0 +1,29 @@
+{
+  "devDependencies": {
+    "@types/lodash": "^4.14.192",
+    "@types/node": "^18.15.11"
+  },
+  "scripts": {
+    "cases": "tsc && node dist/cases.js",
+    "laws": "tsc && node dist/laws.js",
+    "announcements": "tsc && node dist/announcements.js",
+    "removeDuplicateCases": "tsc && node dist/removeDuplicateCases.js",
+    "probe": "tsc && node dist/probe.js"
+  },
+  "dependencies": {
+    "@sanity/client": "^5.4.2",
+    "@sanity/image-url": "^1.0.2",
+    "@types/unidecode": "^0.1.1",
+    "bottleneck": "^2.19.5",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "p-queue": "^7.3.4",
+    "pdf-parse": "^1.1.1",
+    "pdf2pic": "^2.1.4",
+    "pdfjs-dist": "^3.5.141",
+    "sharp": "^0.32.1",
+    "string-similarity": "^4.0.4",
+    "tesseract.js": "^4.0.4",
+    "unidecode": "^0.1.8"
+  }
+}

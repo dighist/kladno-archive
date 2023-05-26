@@ -3,6 +3,7 @@ import Link from 'next/link'
 import caseFile from 'schemas/caseFile'
 
 export default function CaseFilePreview(props: { case: any }) {
+  console.log(props.case)
   return (
     <div className="h-fit w-full border border-semi-dark p-0 hover:border-lightgrey ">
       <Link
@@ -26,7 +27,7 @@ export default function CaseFilePreview(props: { case: any }) {
 
         <hr className="border-semi-dark"></hr>
 
-        <img src={props.case.documents[0].image}></img>
+        <img src={props.case.documents[0][0].image}></img>
 
         <hr className="border-semi-dark"></hr>
 
