@@ -1,0 +1,4 @@
+# ignore all of kladno-data-merge/data/ folder
+/kladno-data-merge/data/
+/kladno-data-merge/data/python/KLID Sanity Cases/
+/kladno-data-merge/data/python/Sanity Cases/
