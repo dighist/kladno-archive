@@ -2,7 +2,7 @@ import type { CaseFile, Post } from 'lib/sanity.queries'
 import Link from 'next/link'
 import caseFile from 'schemas/caseFile'
 
-export default function CaseFilePreview(props: { case: CaseFile }) {
+export default function CaseFilePreview(props: { case: any }) {
   return (
     <div className="h-fit w-full border border-semi-dark p-0 hover:border-lightgrey ">
       <Link
@@ -14,7 +14,9 @@ export default function CaseFilePreview(props: { case: CaseFile }) {
           {props.case.personProsecuted.firstName}{' '}
           {props.case.personProsecuted.lastName}
         </p>
-        <div className="ml-2 mb-4 px-2 py-1 w-max rounded-full bg-semi-dark"><p className="font-mono text-smmono text-dark">Case</p></div>
+        <div className="ml-2 mb-4 w-max rounded-full bg-semi-dark px-2 py-1">
+          <p className="font-mono text-smmono text-dark">Case</p>
+        </div>
 
         <hr className="border-semi-dark"></hr>
 
@@ -24,7 +26,7 @@ export default function CaseFilePreview(props: { case: CaseFile }) {
 
         <hr className="border-semi-dark"></hr>
 
-        <img src={props.case.documents[0].scan}></img>
+        <img src={props.case.documents[0].image}></img>
 
         <hr className="border-semi-dark"></hr>
 

@@ -4,7 +4,7 @@ import ForwardArrow from './ForwardArrow'
 import next from 'next/types'
 
 export default function CaseFileCloseView(props: {
-  case: CaseFileDocument
+  case: any
   setFileSelected: any
   setSelectedFile: any
   fullFile: CaseFile
@@ -48,7 +48,7 @@ export default function CaseFileCloseView(props: {
 
       <div className="relative flex h-screen w-4/12 items-center">
         <img
-          src={props.case.scan}
+          src={props.case.image}
           className="m-auto h-5/6 object-contain object-center"
         ></img>
         <div className="absolute top-8 flex h-6 w-full justify-between  px-8  text-lightgrey hover:cursor-pointer ">

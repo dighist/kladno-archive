@@ -62,7 +62,7 @@ export default function CaseFileListSection(props: { caseFile: CaseFile }) {
                     className="my-4 "
                   >
                     <img
-                      src={file.scan}
+                      src={file.image}
                       className="w-full border-2 border-transparent object-cover   hover:border-lightgrey"
                     />
                     <div className="font-mono text-lightgrey">Case File</div>
