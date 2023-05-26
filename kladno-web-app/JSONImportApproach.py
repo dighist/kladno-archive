@@ -131,9 +131,14 @@ for case in cases:
         })
             
     # create json for caseFile
+    name = {case.split('_')[1]}
+    # change name to include spaces
+    name = name.pop().replace('%20', ' ')
+
     caseFile_json = {
         "_id": f"case-{klid}",
         "_type": "caseFile",
+        "title": f"Case {klid} - {name}",
         "documents": case_doc_refs,
         "originalFilename": case_path
     }

@@ -68,7 +68,6 @@ export default defineType({
       title: 'Accusing Institution',
       type: 'reference',
       to: [{ type: institutionType.name }],
-      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'personProsecuted',
