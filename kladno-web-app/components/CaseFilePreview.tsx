@@ -3,7 +3,7 @@ import Link from 'next/link'
 import caseFile from 'schemas/caseFile'
 
 export default function CaseFilePreview(props: { case: any }) {
-  console.log(props.case)
+  console.log("CaseFilePreview", props.case)
   return (
     <div className="h-fit w-full border border-semi-dark p-0 hover:border-lightgrey ">
       <Link
@@ -11,10 +11,12 @@ export default function CaseFilePreview(props: { case: any }) {
         passHref
         className=" hover:cursor-pointer "
       >
-        <p className="px-2 pt-2 pb-1 font-serif text-md text-white">
-          {props.case.personProsecuted.firstName}{' '}
-          {props.case.personProsecuted.lastName}
-        </p>
+        {props.case.personProsecuted && (
+          <p className="px-2 pt-2 pb-1 font-serif text-md text-white">
+            {props.case.personProsecuted.firstName}{' '}
+            {props.case.personProsecuted.lastName}
+          </p>
+        )}
         <div className="ml-2 mb-4 w-max rounded-full bg-semi-dark px-2 py-1">
           <p className="font-mono text-smmono text-dark">Case</p>
         </div>
@@ -26,9 +28,9 @@ export default function CaseFilePreview(props: { case: any }) {
         </p>
 
         <hr className="border-semi-dark"></hr>
-
-        <img src={props.case.documents[0][0].image}></img>
-
+        {props.case.documents.length && (
+          <img src={props.case.documents[0].images[0]}></img>
+        )}
         <hr className="border-semi-dark"></hr>
 
         {props.case.documents && (
